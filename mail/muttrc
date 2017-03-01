@@ -1,0 +1,6 @@
+#sudo vim ~/.muttrc
+set sendmail="/usr/bin/msmtp"
+set use_from=yes
+set realname="sender's name"
+set from=yourmail@126.com
+set envelope_from=yes

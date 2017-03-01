@@ -1,0 +1,64 @@
+" for Pathogen
+execute pathogen#infect()
+
+syntax enable
+syntax on
+filetype indent plugin on
+
+set tabstop=4
+set shiftwidth=4
+set cindent
+set nu
+" highlight matched word and mark it yellow
+set hlsearch
+hi Search term=standout ctermbg=yellow
+
+" force colorcolumn's color to red
+set colorcolumn=100
+hi colorcolumn ctermbg=red guibg=red
+
+" for nerdtree
+nnoremap <F5> :NERDTreeToggle<CR>
+" for tagbar
+nnoremap <F8> :TagbarToggle<CR>
+
+" for air-line
+set t_Co=256
+" let g:airline_section_b = '%{strftime("%c")}'
+" let g:airline_section_y = 'BN: %{bufnr("%")}'
+set laststatus=2
+" molokai, solarized, simple, luna
+" let g:airline_theme='luna'
+let g:airline_theme='solarized'
+let g:airline_solarized_bg='dark'
+let g:airline#extensions#tabline#enabled=1
+let g:airline#extensions#tabline#buffer_idx_mode=1
+" turn off indent check
+let g:airline#extensions#whitespace#enabled = 0
+let g:airline#extensions#tabline#left_alt_sep='|'
+let g:airline#extensions#tabline#left_sep=' '
+let g:airline_left_sep='>'
+let g:airline_right_sep='<'
+nnoremap <F3> :bn<CR>
+nnoremap <F4> :bp<CR>
+
+" highlight unwanted space
+highlight ExtraWhitespace ctermbg=red guibg=red
+autocmd BufWinEnter * match ExtraWhitespace /\s\+$\| \+\ze\t\+\|\t\+\zs \+/
+
+" for learning vimscript
+" echom '>^.^<'
+nnoremap <c-u> viwgU
+inoremap <c-u> <esc>viwgUi
+
+let mapleader=','
+nnoremap <leader>ev :vsplit $MYVIMRC<CR>
+nnoremap <leader>sv :source $MYVIMRC<CR>
+" nnoremap H ^
+" nnoremap L $
+" surround word with double quotations
+nnoremap <leader>" viw<esc>a"<esc>hbi"<esc>lel
+vnoremap <leader>t <esc>`>a'<esc>`<i'<esc>
+
+" set statusline=%F
+
