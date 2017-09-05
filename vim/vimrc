@@ -62,3 +62,7 @@ vnoremap <leader>t <esc>`>a'<esc>`<i'<esc>
 
 " set statusline=%F
 
+" for ctags
+set autochdir
+set tags=tags;
+
