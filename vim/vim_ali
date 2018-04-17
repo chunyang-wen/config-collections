@@ -1,0 +1,157 @@
+" for Pathogen
+execute pathogen#infect()
+
+syntax enable
+syntax on
+filetype indent plugin on
+
+set tabstop=4
+set expandtab
+set shiftwidth=4
+set cindent
+set nu
+set wrap
+" highlight matched word and mark it yellow
+set hlsearch
+hi Search term=standout ctermbg=yellow
+
+" force colorcolumn's color to red
+set colorcolumn=100
+hi colorcolumn ctermbg=red guibg=red
+" colorscheme SolarizedDark
+" colorscheme molokai
+colorscheme solarized
+set background=dark
+
+" for nerdtree
+nnoremap <F5> :NERDTreeToggle<CR>
+" for tagbar
+nnoremap <F8> :TagbarToggle<CR>
+
+nnoremap <F2> :SyntasticToggleMode<CR>
+nnoremap <F10> :SyntasticCheck<CR>
+
+" for Syntasitic
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+"let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+let g:syntastic_c_include_dirs = [ '/usr/local/lib/python2.7/site-packages/tensorflow/include', '../include' ]
+
+" for indent line
+let g:indentLine_color_term = 239
+let g:indentLine_enabled = 1
+let g:indentLine_setColors = 0
+let g:indentLine_bgcolor_term = 202
+let g:indentLine_bgcolor_gui = '#FF5F00'
+let g:indentLine_char = '|'
+
+" for air-line
+set t_Co=256
+" let g:airline_section_b = '%{strftime("%c")}'
+" let g:airline_section_y = 'BN: %{bufnr("%")}'
+set laststatus=2
+" molokai, solarized, simple, luna
+" let g:airline_theme='luna'
+let g:airline_theme='solarized'
+let g:airline_solarized_bg='dark'
+let g:airline#extensions#tabline#enabled=1
+let g:airline#extensions#tabline#buffer_idx_mode=1
+" turn off indent check
+let g:airline#extensions#whitespace#enabled = 0
+let g:airline#extensions#tabline#left_alt_sep='|'
+let g:airline#extensions#tabline#left_sep=' '
+let g:airline_left_sep='>'
+let g:airline_right_sep='<'
+nnoremap <F4> :bn<CR>
+nnoremap <F3> :bp<CR>
+
+" highlight unwanted space
+highlight ExtraWhitespace ctermbg=red guibg=red
+autocmd BufWinEnter * match ExtraWhitespace /\s\+$\| \+\ze\t\+\|\t\+\zs \+/
+
+" for learning vimscript
+" echom '>^.^<'
+nnoremap <c-u> viwgU
+inoremap <c-u> <esc>viwgUi
+
+let mapleader=','
+nnoremap <leader>ev :vsplit $MYVIMRC<CR>
+nnoremap <leader>sv :source $MYVIMRC<CR>
+" nnoremap H ^
+" nnoremap L $
+" surround word with double quotations
+nnoremap <leader>" viw<esc>a"<esc>hbi"<esc>lel
+vnoremap <leader>t <esc>`>a'<esc>`<i'<esc>
+
+" set statusline=%F
+" for ctags
+set autochdir
+set tags=tags;
+
+let SHTERM_REAL_USER='chengfu.wcy'
+
+autocmd BufNewFile *.sh,*.pl,*.py exec ":call SetTitle()" 
+"autocmd BufWrite   *.sh,*.pl,*.py exec ":call ModifyTitle()"
+autocmd BufWrite *.sh,*pl,*py if getline(6) != "# Modify Author: ".expand("$SHTERM_REAL_USER@email.com") || split(getline(7))[3] != strftime("%F") | call ModifyTitle() | endif
+
+autocmd BufNewFile,BufRead *.py exec ":call SetTable()"
+func SetTable()
+    set expandtab
+    set tabstop=4
+    set shiftwidth=4
+endfunc
+
+func SetTitle()
+	if &filetype == 'sh'
+		call setline(1, "\#!/bin/sh") 
+		call append(line("."), "\#****************************************************************#") 
+		call append(line(".")+1, "\# ScriptName: ".expand("%") ) 
+		call append(line(".")+2, "\# Author: ".expand("$SHTERM_REAL_USER@email.com") )
+		call append(line(".")+3, "\# Create Date: ".strftime("%F %R")) 
+		call append(line(".")+4, "\# Modify Author: ".expand("$SHTERM_REAL_USER@email.com") )
+		call append(line(".")+5, "\# Modify Date: ".strftime("%F %R"))
+		call append(line(".")+6, "\# Function: " ) 
+		call append(line(".")+7, "\#***************************************************************#") 
+		call append(line(".")+8, "") 
+		:8
+	elseif &filetype == 'perl'
+		call setline(1, "\#!/usr/bin/perl") 
+		call append(line("."), "\#****************************************************************#") 
+		call append(line(".")+1, "\# ScriptName: ".expand("%") ) 
+		call append(line(".")+2, "\# Author: ".expand("$SHTERM_REAL_USER@email.com") ) 
+		call append(line(".")+3, "\# Create Date: ".strftime("%F %R")) 
+		call append(line(".")+4, "\# Modify Author: ".expand("$SHTERM_REAL_USER@email.com") )
+		call append(line(".")+5, "\# Modify Date: ".strftime("%F %R"))
+		call append(line(".")+6, "\# Function: ") 
+		call append(line(".")+7, "\#***************************************************************#") 
+		call append(line(".")+8, "") 
+		:8
+	elseif &filetype == 'python'
+		call setline(1, "\#!/usr/bin/env python") 
+		call append(line("."), "\# coding: utf-8") 
+		call append(line(".")+1, "\#****************************************************************#") 
+		call append(line(".")+2, "\# ScriptName: ".expand("%") ) 
+		call append(line(".")+3, "\# Author: ".expand("$SHTERM_REAL_USER@email.com") ) 
+		call append(line(".")+4, "\# Create Date: ".strftime("%F %R")) 
+		call append(line(".")+5, "\# Modify Author: ".expand("$SHTERM_REAL_USER@email.com") )
+		call append(line(".")+6, "\# Modify Date: ".strftime("%F %R"))
+		call append(line(".")+7, "\# Function: ") 
+		call append(line(".")+8, "\#***************************************************************#") 
+		call append(line(".")+9, "") 
+		:8
+	endif
+endfunc
+
+func ModifyTitle()
+	if getline(6) =~ "# Modify Author:.*"
+		call setline(6, "\# Modify Author: ".expand("$SHTERM_REAL_USER@email.com") )
+		call setline(7, "\# Modify Date: ".strftime("%F %R"))
+	endif
+endfunc
+
+"set mouse=a
