@@ -157,6 +157,9 @@ func ModifyTitle()
 	endif
 endfunc
 
+"iTerm2 > Preferences > Advanced
+" Mouse > Scroll wheel sends arrow keys in alternate screen mode.
+"
 "set mouse=a
 
 " clang_complete
@@ -165,3 +168,5 @@ endfunc
 
  let g:ycm_global_ycm_extra_conf = "/Users/chengfu/.vim/bundle/YouCompleteMe/.ycm_extra_conf.py"
  let g:ycm_autoclose_preview_window_after_completion = 1
+
+ set clipboard=unnamed
